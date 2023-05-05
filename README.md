@@ -1,0 +1,2 @@
+# egc-proiect
+egc proiect
