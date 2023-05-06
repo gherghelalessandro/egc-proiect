@@ -57,6 +57,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\scripts\mouselook.cs" />
+    <Compile Include="Assets\scripts\musica_pl.cs" />
+    <Compile Include="Assets\dont.cs" />
     <Compile Include="Assets\scripts\death.cs" />
     <Compile Include="Assets\scripts\loadgame.cs" />
     <Compile Include="Assets\scripts\writetext.cs" />
@@ -64,6 +66,7 @@
     <Compile Include="Assets\scripts\Omovement.cs" />
     <Compile Include="Assets\scripts\screencheck.cs" />
     <Compile Include="Assets\scripts\changeDir.cs" />
+    <Compile Include="Assets\checkerforfinal.cs" />
     <Compile Include="Assets\scripts\do_something.cs" />
     <Compile Include="Assets\scripts\Movement.cs" />
   </ItemGroup>

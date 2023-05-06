@@ -24,20 +24,22 @@ public class Movement : MonoBehaviour
     public Transform groundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    bool isGrounded;
+   public bool isGrounded;
     bool touched;
     public bool score = false;
     public bool jumps1 = true;
     bool nojump = false;
     public TextMeshProUGUI texts;
     int score1 = 0;
+    public AudioSource soundj,sound_death,sound_corect;
 
 
     public string text = "main hub";
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;   
+        Cursor.lockState = CursorLockMode.Locked;
+        sound_death = GameObject.FindGameObjectWithTag("wall").GetComponent<AudioSource>();
     }
 
 
@@ -48,17 +50,26 @@ public class Movement : MonoBehaviour
         {
             texts.text = "Jumps:" + jumps;
         }
-        if(score==true) {
+        else if(score==true) {
             texts.text = "Score:" + score1;
+        }
+        else
+        {
+            texts.text = "";
         }
         
     }
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCheck.position,groundDistance,groundMask);
-        if(isGrounded && velocity.y<0&&touched&&nojump==false)
+        
+        if(isGrounded && velocity.y<0)
         {
             velocity.y=-2f;
+        }
+
+        if(isGrounded && velocity.y < 0 && nojump == false)
+        {
             jumps = 2;
         }
         
@@ -72,6 +83,7 @@ public class Movement : MonoBehaviour
 
         if(Input.GetButtonDown("Jump")&&jumps>0) 
         {
+            soundj.Play();
             velocity.y=Mathf.Sqrt(jumpHeight*gravity*-2f);
             jumps--;
             if(jumps1==true)
@@ -88,7 +100,13 @@ public class Movement : MonoBehaviour
 
         if(transform.position.y<-20)
         {
-            SceneManager.LoadScene(text);
+            float timp = 0.01f;
+            sound_death.Play();
+            while (timp < 40000)
+            {
+                timp += timp * Time.deltaTime;
+            }
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
         velocity.y+=gravity*Time.deltaTime;
 
@@ -123,10 +141,21 @@ public class Movement : MonoBehaviour
                 if(dos.iscorect==true)
                 {
                     score1++;
+                    sound_corect.Play();
                 }
-                if(dos.iscorect==false&&dos.kill==true)
+                else if(dos.iscorect==false&&dos.kill==true)
                 {
+                    float timp = 0.01f;
+                    sound_death.Play();
+                    while(timp<40000)
+                    {
+                        timp += timp * Time.deltaTime;
+                    }
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                }
+                else if(dos.iscorect==false)
+                {
+                    sound_death.Play();
                 }
                 dos.active = false;
             }

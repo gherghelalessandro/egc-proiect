@@ -9,6 +9,14 @@ public class death : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+            var player = other.gameObject.GetComponent<Movement>();
+            float timp = 0.01f;
+            player.sound_death.Play();
+            while (timp < 40000)
+            {
+                timp += timp * Time.deltaTime;
+            }
+
             SceneManager.LoadScene(text);
         }
     }

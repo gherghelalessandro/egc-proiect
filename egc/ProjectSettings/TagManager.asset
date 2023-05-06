@@ -8,6 +8,7 @@ TagManager:
   - platform
   - changer
   - nojump
+  - wall
   layers:
   - Default
   - TransparentFX
